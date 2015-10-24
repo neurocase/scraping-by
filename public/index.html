@@ -1,0 +1,36 @@
+<title> New Web Scraper </title>
+
+
+<script type="text/javascript" src="./js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="./js/json2.js"></script>
+
+
+	
+<body> 
+	Scraping By
+<script>
+$(document).ready(function(){
+	console.log("READY");
+	var name, info;
+	$("#submit").click(function(){
+		urlString=$("#urlString").val();
+		grabElement=$("#grabElement").val();
+		var clicked = "submit";
+		console.log("+++++ " + urlString + " " );
+		$.post("http://localhost:8080", {urlString: urlString, grabElement: grabElement, clicked: clicked}, function(data){
+			if(data ==='done'){
+					console.log("success");
+			}	
+		});
+	});
+});
+</script>
+
+<br></br>
+UrlString <input name="urlString" id ="urlString" value="https://www.google.com.au/#q=testpage">
+<br></br>
+GrabElement <input name="grabElement" id="grabElement" value="h1">
+<br></br>
+<input type="button" id="submit" value="submit">
+	
+</body> 
