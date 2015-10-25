@@ -1,6 +1,6 @@
 {
 
-	"name" : "JSON Test",
-	"city" : "Bulgaria",
-	"info" : "peshlog is gremlak"
+	"urlString" : "http://www.yahoo.com",
+	"grabElement" : "h1",
+	"clicked" : "submit"
 }

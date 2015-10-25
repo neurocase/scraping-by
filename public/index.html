@@ -1,36 +1,84 @@
-<title> New Web Scraper </title>
+<html ng-app="scrapeApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js Example</title>
+	<script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/json2.js"></script>
+	<script src="js/angular.min.js"></script>
+    <script>
+      var scrapeApp = angular.module('scrapeApp', []);
+      scrapeApp.controller('NameCtrl', function ($scope, $http){
 
-
-<script type="text/javascript" src="./js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="./js/json2.js"></script>
-
-
-	
-<body> 
-	Scraping By
-<script>
-$(document).ready(function(){
-	console.log("READY");
-	var name, info;
-	$("#submit").click(function(){
-		urlString=$("#urlString").val();
-		grabElement=$("#grabElement").val();
-		var clicked = "submit";
-		console.log("+++++ " + urlString + " " );
-		$.post("http://localhost:8080", {urlString: urlString, grabElement: grabElement, clicked: clicked}, function(data){
+		$scope.urlString = "http://www.google.com";
+		$scope.grabElement = "p";
+		  
+        $scope.addName = function() {	
+			
+			
+			var jsonPOST = {
+			"urlString": $scope.urlString,
+			"grabElement": $scope.grabElement,
+				"clicked": "submit"
+				
+			};
+			
+			// using jQuery to post because angularJS formats as a "Query String" whilst Jquery does the correct "Form Data"
+			$.post("http://localhost:8080", jsonPOST, function(data){
 			if(data ==='done'){
 					console.log("success");
-			}	
+			}
 		});
-	});
-});
+          
+        };
+      });
+    </script>
+  </head>
+  <body ng-controller="NameCtrl">
+
+    <form ng-submit="addName()">
+		URL: <input type="text" ng-model="urlString">
+		<br></br>
+     	GRAB ELEMENT: <input type="text" ng-model="grabElement">
+	  <br></br>
+     	<input type="submit" value="add">
+	
+	
+    </form>
+
+
+
+
+<h2>Results:</h2>
+
+<p id="demo"></p>
+
+<p id="demo">[ ... ]</p>
+
+<button type="button" onclick="loadDoc()">Get Results</button>
+
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("GET", "myResults.txt", false);
+  xhttp.send();
+  document.getElementById("demo").innerHTML = xhttp.responseText;
+}
 </script>
 
-<br></br>
-UrlString <input name="urlString" id ="urlString" value="https://www.google.com.au/#q=testpage">
-<br></br>
-GrabElement <input name="grabElement" id="grabElement" value="h1">
-<br></br>
-<input type="button" id="submit" value="submit">
-	
-</body> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
